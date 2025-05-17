@@ -1,0 +1,1 @@
+https://ghcr.io/kevinadityaikhsan/item-app:v1
