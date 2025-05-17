@@ -1,0 +1,30 @@
+# Using the latest version of Docker Compose.
+version: '3.8'
+
+# Creating two services: item-app and item-db.
+services:
+
+  item-app:
+    # Using the item-app image from GitHub Container Registry.
+    image: ghcr.io/kevinadityaikhsan/item-app:v1
+    # Port mapping to allow access from port 80 on the host.
+    ports:
+      - 80:8080
+    # item-app starts after item-db is launched.
+    depends_on:
+      - item-db
+    # Applying a restart policy to always restart the container when it stops.
+    restart: always
+
+  item-db:
+    # Using the mongo:3 image from Docker Hub.
+    image: mongo:3
+    # Using a volume named app-db with the target /data/db in the container.
+    volumes:
+      - app-db:/data/db
+    # Applying a restart policy to always restart the container when it stops.
+    restart: always
+
+# Creating a volume named app-db.
+volumes:
+  app-db:
