@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Build Docker image
-docker build -t gchr.io/kevinadityaikhsan/karsajobs-ui:latest .
+docker build -t ghcr.io/kevinadityaikhsan/karsajobs-ui:latest .
 
 # Login to GHCR (GitHub Container Registry)
 docker login ghcr.io -u kevinadityaikhsan -p $GH_PACKAGES_TOKEN
