@@ -1,0 +1,26 @@
+name: CI for karsajobs-ui  # Continuous Integration workflow for the Karsajobs UI project
+
+on:
+  push:
+    branches:
+      - karsajobs-ui  # Run the workflow on push events to the 'karsajobs-ui' branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # Use the latest Ubuntu environment for executing this job
+
+    steps:
+      - name: Checkout Repository  # Clone the repository to the GitHub Actions runner
+        uses: actions/checkout@v2
+
+      - name: Install and Run Hadolint  # Download and execute Hadolint to lint the Dockerfile for best practices
+        run: |
+          wget -O hadolint https://github.com/hadolint/hadolint/releases/latest/download/hadolint-Linux-x86_64
+          chmod +x hadolint
+          ./hadolint Dockerfile
+
+      - name: Build and Push Docker Image  # Build the Docker image and push it to the designated container registry
+        run: |
+          export GH_PACKAGES_TOKEN=${{ secrets.GH_PACKAGES_TOKEN }}
+          bash build_push_image_karsajobs_ui.sh
+
